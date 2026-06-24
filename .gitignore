@@ -1,0 +1,15 @@
+# TypeScript package
+ts/node_modules/
+ts/*.tsbuildinfo
+ts/.cache/
+
+# Python package
+python/**/__pycache__/
+python/*.egg-info/
+python/.mypy_cache/
+python/.ruff_cache/
+python/.pytest_cache/
+python/build/
+python/dist/
+
+.DS_Store

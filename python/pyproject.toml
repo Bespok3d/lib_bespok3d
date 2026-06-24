@@ -1,0 +1,13 @@
+[project]
+name = "bespok3d-contract"
+version = "0.0.0"
+description = "Shared Bespok3d SDK contract (Python side). Skeleton: the daemon's FastAPI Pydantic schemas remain the wire source, guarded against the TS @bespok3d/contract by the golden-fixture round-trip test (ADR-0038). This package is the home the wire contract migrates into when the SDK codegen lands."
+requires-python = ">=3.11"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["bespok3d_contract"]
