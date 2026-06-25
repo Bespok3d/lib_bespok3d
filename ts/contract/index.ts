@@ -13,3 +13,5 @@ export type {
 } from './wire'
 
 export type { KeyPurpose, KeyAssignment, GenerateKeyOptions, KeyRecord } from './keys'
+
+export type { B3dRoute, DriftReport, DaemonMetadata } from './boundary'
