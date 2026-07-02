@@ -18,6 +18,21 @@ export interface Endpoint {
   url: string
 }
 
+// GET /status: liveness, version, and (daemon >= 0.12.12-dev) the stable printer identity, minted
+// once at first startup and persisted in the data root. Optional AND nullable on purpose: an older
+// daemon omits the key entirely, a daemon without a persistent data root reports null.
+export interface DaemonStatusResult {
+  ok: boolean
+  version: string
+  printer_uuid?: string | null
+}
+
+// GET /plugins/{id}/config (daemon >= 0.12.12-dev): the user variables persisted next to the plugin
+// at install/reconfigure time. Empty for a plugin that took none; the route 404s on an unknown id.
+export interface PluginConfigResult {
+  vars: Record<string, string>
+}
+
 export interface CapabilitiesResult {
   adapter: string
   hardware: string[]

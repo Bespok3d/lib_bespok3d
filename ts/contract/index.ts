@@ -4,6 +4,8 @@
 
 export type {
   Endpoint,
+  DaemonStatusResult,
+  PluginConfigResult,
   CapabilitiesResult,
   InstallLogItem,
   InstallLogPhase,

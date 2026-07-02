@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import type {
   CapabilitiesResult,
+  DaemonStatusResult,
   InstallLog,
   KeyRecord,
+  PluginConfigResult,
   RecoverResult,
 } from './index'
 
@@ -37,6 +39,19 @@ describe('@bespok3d/contract shapes are constructible', () => {
     const recover = { ok: true, results: [] } satisfies RecoverResult
     expect(log.phases[0].id).toBe('extract')
     expect(recover.ok).toBe(true)
+  })
+
+  it('builds a DaemonStatusResult and a PluginConfigResult', () => {
+    const bareStatus: DaemonStatusResult = { ok: true, version: '0.12.11-dev' }
+    const identifiedStatus = {
+      ok: true,
+      version: '0.12.12-dev',
+      printer_uuid: '11111111-2222-3333-4444-555555555555',
+    } satisfies DaemonStatusResult
+    const config = { vars: { SPOOLMAN_SERVER: '10.6.9.248:8000' } } satisfies PluginConfigResult
+    expect(bareStatus.printer_uuid).toBeUndefined()
+    expect(identifiedStatus.printer_uuid).toContain('-')
+    expect(config.vars.SPOOLMAN_SERVER).toBe('10.6.9.248:8000')
   })
 
   it('builds a KeyRecord', () => {
