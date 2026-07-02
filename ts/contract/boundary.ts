@@ -15,6 +15,18 @@ export interface DriftReport {
   symlinkIssueCount: number
 }
 
+// The per-printer records behind the Config tab's truth ladder, declared once for the persisted
+// PrinterRecord (main) and the renderer Printer state: the vars THIS computer last sent per plugin
+// id with the ISO timestamp of that send (tier 2, shown with a visible "as sent from this computer
+// on [date]" marker; pruned on uninstall), and the daemon-minted stable printer identity from
+// /status (daemon >= 0.12.12-dev; survives OTA, keys the scoped plugin-config store, never cleared
+// once learned).
+export interface ConfigTruthRecords {
+  appliedPluginVars?: Record<string, Record<string, string>>
+  appliedPluginVarsAt?: Record<string, string>
+  printerUuid?: string
+}
+
 // What main learns about a managed printer's daemon after a probe; the renderer applies it to state.
 export interface DaemonMetadata {
   daemonVersion?: string
@@ -25,4 +37,7 @@ export interface DaemonMetadata {
   jinniVersion?: string
   jinniCapabilities?: string[]
   jinniExtras?: string[]
+  // The daemon-minted stable printer identity (/status printer_uuid, daemon >= 0.12.12-dev).
+  // Absent when the daemon predates it or has not minted one; never used to clear a learned uuid.
+  printerUuid?: string
 }
