@@ -4,6 +4,7 @@
 
 export type {
   Endpoint,
+  KernelInfo,
   DaemonStatusResult,
   PluginConfigResult,
   CapabilitiesResult,

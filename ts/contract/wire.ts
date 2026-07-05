@@ -33,6 +33,13 @@ export interface PluginConfigResult {
   vars: Record<string, string>
 }
 
+// The running kernel's identity, read from a loaded module via modinfo: the ground truth a
+// kernel-module plugin builds a .ko against. Both fields default to 'unknown' on a box reporting none.
+export interface KernelInfo {
+  release: string
+  vermagic: string
+}
+
 export interface CapabilitiesResult {
   adapter: string
   hardware: string[]
@@ -43,6 +50,9 @@ export interface CapabilitiesResult {
   // variant engine selects native artifacts on; the daemon always emits them (defaulting to unknown).
   arch: string
   board_class: string
+  // The running kernel release + version magic (modinfo ground truth), the finer variant dimension a
+  // .ko selects on and the reference the load-failure classifier compares a stale module against.
+  kernel: KernelInfo
   klipper_version: string
   jinni_version: string
   capability_flags: string[]
