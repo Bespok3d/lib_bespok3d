@@ -39,6 +39,10 @@ export interface CapabilitiesResult {
   installed: Record<string, string>
   deactivated?: string[]
   firmware_version: string
+  // arch (aarch64, ...) and board_class (standard | constrained | unknown) are the device facts the
+  // variant engine selects native artifacts on; the daemon always emits them (defaulting to unknown).
+  arch: string
+  board_class: string
   klipper_version: string
   jinni_version: string
   capability_flags: string[]
