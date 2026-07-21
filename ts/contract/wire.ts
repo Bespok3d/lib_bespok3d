@@ -45,6 +45,11 @@ export interface CapabilitiesResult {
   hardware: string[]
   installed: Record<string, string>
   deactivated?: string[]
+  // Installed plugins still holding the manifest signature their package shipped. Presence on disk
+  // ONLY: the daemon does not verify signatures, so this never says a plugin is trusted, only that the
+  // evidence for a later verification survived the install. Optional: a daemon older than 0.12.19-dev
+  // omits it entirely, which is not the same claim as an empty list.
+  stored_signatures?: string[]
   firmware_version: string
   // arch (aarch64, ...) and board_class (standard | constrained | unknown) are the device facts the
   // variant engine selects native artifacts on; the daemon always emits them (defaulting to unknown).
