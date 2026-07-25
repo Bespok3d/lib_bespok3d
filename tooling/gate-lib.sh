@@ -73,7 +73,7 @@ shellcheck_repo() {
     fi
     while IFS= read -r -d '' script; do
         run_check "shellcheck $(basename "$script")" shellcheck "$script"
-    done < <(find "$@" -name "*.sh" -not -path "*/node_modules/*" -not -path "*/.venv*/*" -print0 2>/dev/null)
+    done < <(find "$@" -name "*.sh" -not -path "*/node_modules/*" -not -path "*/.venv*/*" -not -path "*/lib_bespok3d/*" -print0 2>/dev/null)
 }
 
 # ── The Python 3.11 toolchain ─────────────────────────────────────────────────

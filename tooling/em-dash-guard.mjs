@@ -21,6 +21,9 @@ const DEFAULT_SUFFIXES = ['.ts', '.tsx', '.mjs', '.py', '.json', '.md', '.css', 
 const EXCLUDED_DIRS = new Set([
   'node_modules', 'dist', 'out', 'app', 'assets', 'wheels', 'site-packages',
   '.venv', '.venv-tools', '.git', '__pycache__', '.pytest_cache', '.mypy_cache', '.ruff_cache', '.hypothesis',
+  // The shared tooling arrives in each consuming repo as a git submodule mounted at lib_bespok3d/. Its
+  // files are checked in their own repo, never again in every consumer that vendors them.
+  'lib_bespok3d',
 ])
 
 export function parseScope(argv) {
