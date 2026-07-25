@@ -1,9 +1,8 @@
 # lib_bespok3d
 
-The home where the Bespok3d cleanup COLLECTS genuinely-common / cross-boundary code (TypeScript +
-Python). Collecting common code here IS cleanup work, and the same act seeds the Bespok3d SDK.
-It is a curated collection of shared things, not a dumping ground: god-file chunks split
-app-internally, and the build/packaging toolchain is the future `plugin-build`, neither lives here.
+The home for genuinely-common, cross-boundary code (TypeScript and Python) shared across Bespok3d
+repos. It is a curated collection, not a dumping ground: code that belongs to a single app stays in
+that app, and the build and packaging toolchain lives in its own repo, neither belongs here.
 
 ## Layout (language-split top-level dirs)
 
@@ -40,11 +39,11 @@ the contract is gate-covered through the app. The `ts/` package also carries its
 The TypeScript wire types here are the app side. The daemon's FastAPI Pydantic models
 (`daemon/api/schemas/*.py`) remain the Python wire source; a golden-fixture round-trip test keeps the
 two halves from drifting (see `python/bespok3d_contract/__init__.py` for the loop). The Python package
-is a skeleton until the SDK codegen makes it the single generated source.
+is a skeleton for now; the plan is to generate it and the TypeScript side from one shared source.
 
-## Deferred: naming reconciliation
+## Naming reconciliation (not yet done)
 
 The wire shapes here mix conventions: some are the app's post-parse camelCase projection
 (`InstallLog.pluginId`), others mirror the daemon snake_case verbatim (`CapabilitiesResult.firmware_version`).
-Unifying them onto one convention is deferred to the SDK build, when the whole contract
-lives here and one source generates both sides.
+Unifying them onto one convention waits until the whole contract lives here and one source generates
+both sides.

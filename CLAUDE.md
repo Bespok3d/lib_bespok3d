@@ -17,8 +17,8 @@ Read `README.md` for the full layout. In short:
   wire shapes (`contract/wire.ts`) and the GPG key types shared across the app's main-to-renderer boundary
   (`contract/keys.ts`). Every export is a type, so consumers `import type` and the import is erased from
   every bundle.
-- `python/`: `bespok3d_contract`, the Python side of the contract. It is a skeleton today; the SDK codegen
-  is what makes it a generated source later.
+- `python/`: `bespok3d_contract`, the Python side of the contract. It is a skeleton today; later, one
+  shared source is meant to generate it.
 - `tooling/`: the shared gate detectors and helpers every repo's `check.sh` sources: the em-dash guard
   (RULE ZERO), the workflow-pinning check, the shellcheck runner, and `gate-lib.sh`. **A change here
   changes every repo's gate.**
@@ -33,7 +33,7 @@ shape mirrored by hand somewhere, that is the bug to fix.
 ## This is a curated collection, not a dumping ground
 
 Before adding code here, prove it is genuinely cross-boundary: shared by more than one of {app, daemon,
-adapters}. A god-file chunk split out of one app is app-internal and does not belong here; the
+adapters}. An oversized file split out of one app is app-internal and does not belong here; the
 build/packaging toolchain does not belong here. "Reuse before create" points work AT this repo: check
 whether the shared thing already exists here before writing a new one anywhere else.
 
