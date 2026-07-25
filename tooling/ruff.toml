@@ -1,0 +1,31 @@
+# The one ruff config for the Python that ships inside plugin and adapter packages. Kept in step with
+# daemon/pyproject.toml by hand: the daemon repo gates standalone and so must own its own config file,
+# but the RULES are meant to be the same everywhere, so a change to one belongs in both.
+
+line-length = 100
+
+[lint]
+# E/W: pycodestyle  F: pyflakes  I: import order  N: naming
+# UP: modern syntax  C9: complexity  PLR/PLW/PLE: pylint rules
+select = ["E", "W", "F", "I", "N", "UP", "C901", "PLR", "PLW", "PLE"]
+
+[lint.isort]
+# The Bespok3d packages, declared so import grouping is stable. Without this, ruff auto-detects
+# first-party from the checked file's path, so a jinni test (which imports both `jinni` and the
+# daemon's `protocol`) gets them split into different groups while a daemon file does not.
+known-first-party = ["core", "api", "protocol", "jinni"]
+
+[lint.mccabe]
+max-complexity = 8
+
+[lint.pylint]
+max-statements = 20       # ~40-line equivalent
+max-nested-blocks = 3     # same as ESLint max-depth: 3
+max-branches = 8
+max-returns = 4
+
+[lint.per-file-ignores]
+# A test asserting on a literal is the test, not a magic number. Matched against the path relative to
+# the working dir, which is why the gate lints a package from its own dir (see ruff_in_dir).
+"tests/**" = ["PLR2004"]
+"**/tests/**" = ["PLR2004"]

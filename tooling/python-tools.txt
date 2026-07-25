@@ -1,0 +1,8 @@
+# The lint and test tools of the shared venv, matched to daemon/requirements-dev.txt. This is tooling
+# only: a package whose own tests need a runtime library declares that library in its own repo.
+pytest>=8.0
+pytest-asyncio>=0.24
+pytest-timeout>=2.3
+hypothesis>=6.0
+ruff>=0.4
+mypy>=1.10
