@@ -1,5 +1,10 @@
 # lib_bespok3d
 
+[![licence](https://img.shields.io/badge/licence-AGPL--3.0-blue)](LICENSE)
+[![release](https://img.shields.io/github/v/release/Bespok3d/lib_bespok3d)](https://github.com/Bespok3d/lib_bespok3d/releases)
+![runtime](https://img.shields.io/badge/runtime-TypeScript%20and%20Python-informational)
+![stock firmware](https://img.shields.io/badge/stock%20firmware-no%20flashing-brightgreen)
+
 The home for genuinely-common, cross-boundary code (TypeScript and Python) shared across Bespok3d
 repos. It is a curated collection, not a dumping ground: code that belongs to a single app stays in
 that app, and the build and packaging toolchain lives in its own repo, neither belongs here.
@@ -65,3 +70,8 @@ not, see <https://www.gnu.org/licenses/>. The full text is in [LICENSE](LICENSE)
 
 Bespok3d is a project of the Bespok3d Organisation, which is not a legal entity. Copyright is held by
 the individual authors named above.
+
+## Support this project
+
+Bespok3d is built and maintained in the open, on stock printer firmware. If it saved you an
+afternoon, you can [buy me a coffee](https://buymeacoffee.com/unlucio).
