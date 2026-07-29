@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 // GPG key contract shared across the app's main<->renderer boundary, collected here in
 // @bespok3d/contract (ADR-0038). The renderer is a separate tsconfig project that must not import
 // main/keys.ts (it carries openpgp + fs); main, preload and renderer all import these types from here

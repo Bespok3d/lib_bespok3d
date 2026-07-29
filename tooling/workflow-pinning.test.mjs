@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 // Runs on plain node (`node --test`), so the shared tooling needs no test framework of its own and
 // every repo can run this suite with the runtime its gate already requires.
 import { describe, it } from 'node:test'

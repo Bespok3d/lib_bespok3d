@@ -1,0 +1,16 @@
+version = 1
+
+# This library is the project's own work, AGPL-3.0-or-later throughout. The source files carry their
+# own two-line SPDX header; `precedence = "aggregate"` means those headers win and this block only
+# fills in the files that do not carry one, which is the documentation, the fixtures and the
+# packaging metadata.
+#
+# Every repo that consumes this library carries it as a submodule, so this file travels with it and
+# states the terms wherever it lands. Sitting inside a repo under different terms does not change
+# either one: they are separate works on one medium, each under its own licence.
+
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Copyright (C) 2026 unlucio and the Bespok3d contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"

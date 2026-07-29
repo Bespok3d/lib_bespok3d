@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 // The app<->daemon response contract: the shapes the daemon returns over HTTP, declared once and
 // collected here in @bespok3d/contract (the SDK's shared layer, ADR-0038). The daemon mirrors these
 // as FastAPI Pydantic models (daemon api/schemas/*.py); a golden-fixture round-trip test pins the two

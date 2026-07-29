@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 // RULE ZERO guard: fail the gate if any authored file carries an em-dash or en-dash.
 //
 //   node <tooling>/em-dash-guard.mjs <path> [<path>...] [--suffix .ext]... [--name FILENAME]...

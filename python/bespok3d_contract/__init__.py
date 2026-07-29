@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """Bespok3d shared contract, Python side (SDK skeleton, ADR-0038).
 
 This package is the eventual home of the app<->daemon wire contract on the Python side. Today the

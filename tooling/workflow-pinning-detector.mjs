@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 // Workflow-pinning guard for the CI that carries the org signing key (no deps).
 //
 //   node <tooling>/workflow-pinning-detector.mjs <repo-dir> [<repo-dir>...]

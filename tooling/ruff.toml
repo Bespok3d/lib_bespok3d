@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
 # The one ruff config for the Python that ships inside plugin and adapter packages. Kept in step with
 # daemon/pyproject.toml by hand: the daemon repo gates standalone and so must own its own config file,
 # but the RULES are meant to be the same everywhere, so a change to one belongs in both.

@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 // The guard now takes its scope from the command line, so the scope parsing and the walk are the
 // parts that can silently stop checking a tree. Both are covered here.
 import { describe, it, before, after } from 'node:test'

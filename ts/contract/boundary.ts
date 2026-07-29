@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 // App-internal boundary types hand-mirrored across the Electron main<->renderer split (IPC payload
 // shapes). Collected here so the two sides import ONE definition instead of drifting copies.
 

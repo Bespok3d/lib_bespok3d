@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
 name: pr-gate
 
 # Every pull request and every push to dev or main runs this repo's own gate, so nothing reaches a
@@ -22,6 +24,14 @@ jobs:
           python-version: '3.11'
       - name: Install the Python linter the gate runs
         run: pip install ruff
+
+      # check.sh runs the per-file licence check through `reuse`, which is not on the runner image.
+      # Without it the check reports itself as skipped, so a file naming a licence whose text is
+      # missing from LICENSES/ would reach main unnoticed. Installed with pip rather than through a
+      # marketplace action, so the workflow-pinning guard has nothing new to pin. The
+      # charset-normalizer extra is not optional: reuse aborts on start without an encoding backend.
+      - name: Install the REUSE licence linter
+        run: pip install 'reuse[charset-normalizer]'
       - name: Install the TypeScript contract's dependencies
         working-directory: ts
         run: npm ci

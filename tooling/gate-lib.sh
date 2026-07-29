@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Copyright (C) 2026 unlucio and the Bespok3d contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
 # The shared half of every repo's gate: the reporting shell, and the Python 3.11 toolchain the Python
 # repos lint and test with. A repo's check.sh sources this, declares only its own checks, and ends with
 # gate_summary. Without it, 20-odd plugin repos would each carry a copy of run_check and a copy of the
@@ -66,6 +68,13 @@ workflow_pinning_check() {
 
 # Every shell script the repo ships. shellcheck is not installable everywhere, so its absence is a
 # reported skip rather than a failure. Args: the dirs to search.
+#
+# The lib_bespok3d checkout is skipped because it gates itself, and dependency directories are
+# skipped because they are not the repo's own shell. They are pruned during descent rather than
+# matched by path, because a path match on `*/lib_bespok3d/*` also matches every file in
+# lib_bespok3d's own tree, which left the repo that owns the shared shell never checking any of it.
+# Pruning means a search root must be a directory inside the repo, never the repo root of the shared
+# checkout itself.
 shellcheck_repo() {
     if ! command -v shellcheck > /dev/null 2>&1; then
         skip_check "shellcheck" "not installed: brew install shellcheck"
@@ -73,7 +82,8 @@ shellcheck_repo() {
     fi
     while IFS= read -r -d '' script; do
         run_check "shellcheck $(basename "$script")" shellcheck "$script"
-    done < <(find "$@" -name "*.sh" -not -path "*/node_modules/*" -not -path "*/.venv*/*" -not -path "*/lib_bespok3d/*" -print0 2>/dev/null)
+    done < <(find "$@" \( -name node_modules -o -name ".venv*" -o -name lib_bespok3d \) -prune -o \
+        -name "*.sh" -print0 2>/dev/null)
 }
 
 # ── The Python 3.11 toolchain ─────────────────────────────────────────────────
