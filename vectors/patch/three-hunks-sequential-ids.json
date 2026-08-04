@@ -1,0 +1,107 @@
+{
+  "name": "three-hunks-sequential-ids",
+  "source": "line one\nline two\nline three\nline four\nline five",
+  "diff": "@@ -1,1 +1,2 @@\n line one\n+first insert\n@@ -3,1 +4,2 @@\n line three\n+second insert\n@@ -5,1 +7,2 @@\n line five\n+third insert",
+  "expect": {
+    "applied": true,
+    "result": "line one\nfirst insert\nline two\nline three\nsecond insert\nline four\nline five\nthird insert",
+    "analyses": [
+      {
+        "hunk_id": "h1",
+        "state": "snapped",
+        "candidates": [
+          {
+            "offset": 1,
+            "confidence": 100
+          }
+        ],
+        "confidence_profile": [
+          {
+            "offset": 1,
+            "confidence": 100
+          },
+          {
+            "offset": 2,
+            "confidence": 0
+          },
+          {
+            "offset": 3,
+            "confidence": 0
+          },
+          {
+            "offset": 4,
+            "confidence": 0
+          },
+          {
+            "offset": 5,
+            "confidence": 0
+          }
+        ]
+      },
+      {
+        "hunk_id": "h2",
+        "state": "snapped",
+        "candidates": [
+          {
+            "offset": 3,
+            "confidence": 100
+          }
+        ],
+        "confidence_profile": [
+          {
+            "offset": 1,
+            "confidence": 0
+          },
+          {
+            "offset": 2,
+            "confidence": 0
+          },
+          {
+            "offset": 3,
+            "confidence": 100
+          },
+          {
+            "offset": 4,
+            "confidence": 0
+          },
+          {
+            "offset": 5,
+            "confidence": 0
+          }
+        ]
+      },
+      {
+        "hunk_id": "h3",
+        "state": "snapped",
+        "candidates": [
+          {
+            "offset": 5,
+            "confidence": 100
+          }
+        ],
+        "confidence_profile": [
+          {
+            "offset": 1,
+            "confidence": 0
+          },
+          {
+            "offset": 2,
+            "confidence": 0
+          },
+          {
+            "offset": 3,
+            "confidence": 0
+          },
+          {
+            "offset": 4,
+            "confidence": 0
+          },
+          {
+            "offset": 5,
+            "confidence": 100
+          }
+        ]
+      }
+    ]
+  }
+}

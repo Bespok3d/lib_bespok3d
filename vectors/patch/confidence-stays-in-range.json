@@ -1,0 +1,35 @@
+{
+  "name": "confidence-stays-in-range",
+  "source": "[stepper_x]\nstep_pin: PA1\ndir_pin: PA2\nenable_pin: PA3",
+  "diff": "@@ -2,2 +2,3 @@\n   step_pin: PA1\n+  microsteps: 16\n   dir_pin: PA2",
+  "expect": {
+    "applied": true,
+    "result": "[stepper_x]\n  step_pin: PA1\n  microsteps: 16\n  dir_pin: PA2\nenable_pin: PA3",
+    "analyses": [
+      {
+        "hunk_id": "h1",
+        "state": "snapped",
+        "candidates": [
+          {
+            "offset": 2,
+            "confidence": 85
+          }
+        ],
+        "confidence_profile": [
+          {
+            "offset": 1,
+            "confidence": 0
+          },
+          {
+            "offset": 2,
+            "confidence": 85
+          },
+          {
+            "offset": 3,
+            "confidence": 0
+          }
+        ]
+      }
+    ]
+  }
+}

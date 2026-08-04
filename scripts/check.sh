@@ -25,6 +25,7 @@ run_check "detector tests"     node --test "$B3D_TOOLING"/*.test.mjs
 run_check "tsc (contract)"     ts/node_modules/.bin/tsc -p ts/tsconfig.json
 run_check "vitest (contract)"  ts/node_modules/.bin/vitest run --root ts
 run_check "ruff (contract)"    ruff_in_dir "$REPO_ROOT" python
+run_check "pytest (python)"    pytest_in_dir "$REPO_ROOT/python" tests
 
 workflow_pinning_check "$REPO_ROOT"
 em_dash_check "$REPO_ROOT/tooling" "$REPO_ROOT/scripts" "$REPO_ROOT/ts/contract" \

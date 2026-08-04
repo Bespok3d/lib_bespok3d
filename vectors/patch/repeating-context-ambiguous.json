@@ -1,0 +1,54 @@
+{
+  "name": "repeating-context-ambiguous",
+  "source": "[gcode_macro A]\ngcode:\n  M117 hi\n[gcode_macro B]\ngcode:\n  M117 hi",
+  "diff": "@@ -2,2 +2,3 @@\n gcode:\n+  M118 added\n  M117 hi",
+  "expect": {
+    "applied": false,
+    "rejects": [
+      {
+        "hunk_id": "h1",
+        "title": "M118 added",
+        "state": "ambiguous",
+        "best_confidence": 93
+      }
+    ],
+    "analyses": [
+      {
+        "hunk_id": "h1",
+        "state": "ambiguous",
+        "candidates": [
+          {
+            "offset": 2,
+            "confidence": 93
+          },
+          {
+            "offset": 5,
+            "confidence": 93
+          }
+        ],
+        "confidence_profile": [
+          {
+            "offset": 1,
+            "confidence": 0
+          },
+          {
+            "offset": 2,
+            "confidence": 93
+          },
+          {
+            "offset": 3,
+            "confidence": 0
+          },
+          {
+            "offset": 4,
+            "confidence": 0
+          },
+          {
+            "offset": 5,
+            "confidence": 93
+          }
+        ]
+      }
+    ]
+  }
+}

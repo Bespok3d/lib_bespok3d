@@ -1,0 +1,43 @@
+{
+  "name": "unique-context-snaps",
+  "source": "line one\nline two\nline three\nline four\nline five",
+  "diff": "@@ -5,1 +5,2 @@\n line five\n+appended tail",
+  "expect": {
+    "applied": true,
+    "result": "line one\nline two\nline three\nline four\nline five\nappended tail",
+    "analyses": [
+      {
+        "hunk_id": "h1",
+        "state": "snapped",
+        "candidates": [
+          {
+            "offset": 5,
+            "confidence": 100
+          }
+        ],
+        "confidence_profile": [
+          {
+            "offset": 1,
+            "confidence": 0
+          },
+          {
+            "offset": 2,
+            "confidence": 0
+          },
+          {
+            "offset": 3,
+            "confidence": 0
+          },
+          {
+            "offset": 4,
+            "confidence": 0
+          },
+          {
+            "offset": 5,
+            "confidence": 100
+          }
+        ]
+      }
+    ]
+  }
+}
