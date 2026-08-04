@@ -22,9 +22,22 @@ lib_bespok3d/
       wire.ts             app<->daemon HTTP response shapes
       keys.ts             GPG key types shared across the app main<->renderer boundary
       contract.test.ts    compile-time shape pins + a runnable vitest
-  python/                 Python package: bespok3d_contract (skeleton)
+  python/                 Python packages: bespok3d_contract (skeleton), bespok3d_patch (patch engine)
     pyproject.toml
     bespok3d_contract/__init__.py
+    bespok3d_patch/
+      engine.py            public surface: parse_unified_diff, analyze, apply, the two thresholds
+      _diff.py             unified-diff text into Hunk objects
+      _scoring.py          per-offset confidence scoring and candidate selection
+      _splice.py           applying analyzed hunks to source text, including the reverse path
+      types.py             the frozen dataclasses shared across the three modules above
+      corpus.py            loads the shared vectors below into test cases
+    tests/
+      test_patch_package.py  the package's own contract: exports, types, the vector loader
+      test_patch_engine.py   drives every vector in vectors/patch through the ported engine
+  vectors/
+    patch/                shared fixtures: the app's real TypeScript engine produced every expectation
+                           here, so the Python port in bespok3d_patch is checked against its answers
 ```
 
 ## How the app consumes it

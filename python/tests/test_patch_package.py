@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 import dataclasses
 import json
-from collections.abc import Callable
 from pathlib import Path
 
 import bespok3d_patch
@@ -11,11 +10,14 @@ from bespok3d_patch.corpus import load_patch_vectors
 from bespok3d_patch.types import ApplyResult, Hunk, HunkAnalysis, HunkLine, RejectedHunk
 
 EXPORTED_NAMES = ("parse_unified_diff", "analyze", "apply", "SNAP_THRESHOLD", "AMBIGUOUS_MIN")
+STAGED_SOURCE = "a line of context\n"
+STAGED_DIFF = "@@ -1,1 +1,1 @@\n-a line of context\n+a line of changed context\n"
+STAGED_PATCHED_SOURCE = "a line of changed context\n"
 STAGED_CASE = {
     "name": "staged-case",
-    "source": "a line of context\n",
-    "diff": "@@ -1,1 +1,1 @@\n-a line of context\n+a line of changed context\n",
-    "expect": {"applied": True, "result": "a line of changed context\n", "analyses": []},
+    "source": STAGED_SOURCE,
+    "diff": STAGED_DIFF,
+    "expect": {"applied": True, "result": STAGED_PATCHED_SOURCE, "analyses": []},
 }
 
 
@@ -33,20 +35,11 @@ def test_a_hunk_snaps_only_above_the_ambiguous_band() -> None:
     assert bespok3d_patch.AMBIGUOUS_MIN < bespok3d_patch.SNAP_THRESHOLD
 
 
-@pytest.mark.parametrize(
-    "call_the_engine",
-    [
-        lambda: bespok3d_patch.parse_unified_diff("@@ -1,1 +1,1 @@\n"),
-        lambda: bespok3d_patch.analyze([], "source"),
-        lambda: bespok3d_patch.apply([], "source"),
-    ],
-    ids=["parse_unified_diff", "analyze", "apply"],
-)
-def test_the_engine_says_it_is_unported_rather_than_answering_wrongly(
-    call_the_engine: Callable[[], object],
-) -> None:
-    with pytest.raises(NotImplementedError, match="patch-engine.ts"):
-        call_the_engine()
+def test_the_engine_ports_the_staged_case_end_to_end() -> None:
+    hunks = bespok3d_patch.parse_unified_diff(STAGED_DIFF)
+    result = bespok3d_patch.apply(hunks, STAGED_SOURCE)
+    assert result.applied is True
+    assert result.text == STAGED_PATCHED_SOURCE
 
 
 def test_the_types_are_frozen_so_an_analysis_cannot_be_edited_after_the_fact() -> None:
