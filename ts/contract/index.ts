@@ -19,4 +19,4 @@ export type {
 
 export type { KeyPurpose, KeyAssignment, GenerateKeyOptions, KeyRecord } from './keys'
 
-export type { B3dRoute, DriftReport, DaemonMetadata, ConfigTruthRecords } from './boundary'
+export type { B3dRoute, DriftReport, PrinterProblem, DaemonMetadata, ConfigTruthRecords } from './boundary'

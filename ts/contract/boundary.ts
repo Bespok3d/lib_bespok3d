@@ -17,6 +17,16 @@ export interface DriftReport {
   symlinkIssueCount: number
 }
 
+// Something wrong with the printer itself rather than with one plugin's links: its own config no
+// longer includes bespok3d, part of the bespok3d tree is gone, a plugin was left half removed, a
+// plugin never came back from a recovery. Reported whatever the plugin count is, because a printer
+// with no plugins left has nothing to drift and can still be thoroughly broken.
+export interface PrinterProblem {
+  kind: string
+  detail: string
+  pluginId: string | null
+}
+
 // The per-printer records behind the Config tab's truth ladder, declared once for the persisted
 // PrinterRecord (main) and the renderer Printer state: the vars THIS computer last sent per plugin
 // id with the ISO timestamp of that send (tier 2, shown with a visible "as sent from this computer
@@ -36,6 +46,15 @@ export interface DaemonMetadata {
   installedIds?: string[]
   installedVersions?: Record<string, string>
   daemonDrift?: DriftReport[]
+  printerProblems?: PrinterProblem[]
+  // Whether the printer itself says bespok3d is switched off on it: wiring gone and plugins unlinked
+  // because someone asked for that. A reachable daemon otherwise reads as a fully working printer, so
+  // without this the app shows a switched-off printer as healthy and offers no way to switch it on.
+  switchedOff?: boolean
+  // Machine tokens (kebab-case) the printer says require a power cycle to clear, e.g.
+  // "display-pipe-wedged". Empty list or absent = no reboot needed; a daemon too old to answer must
+  // read the same way, never as "unknown". Tokens are device knowledge; the app localizes them.
+  rebootRequired?: string[]
   jinniVersion?: string
   jinniCapabilities?: string[]
   jinniExtras?: string[]
