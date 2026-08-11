@@ -13,7 +13,7 @@ that app, and the build and packaging toolchain lives in its own repo, neither b
 
 ```text
 lib_bespok3d/
-  ts/                     TypeScript package: @bespok3d/contract (pure types)
+  ts/                     TypeScript package: @bespok3d/contract (types, plus the one shared comparator)
     package.json          name "@bespok3d/contract", private, type:module
     tsconfig.json         standalone typecheck (noEmit)
     vitest.config.ts      standalone test
@@ -21,6 +21,8 @@ lib_bespok3d/
       index.ts            barrel: the public @bespok3d/contract surface
       wire.ts             app<->daemon HTTP response shapes
       keys.ts             GPG key types shared across the app main<->renderer boundary
+      boundary.ts         shapes crossing the app main<->renderer boundary
+      version.ts          the one version comparator (runtime, not a type)
       contract.test.ts    compile-time shape pins + a runnable vitest
   python/                 Python package: bespok3d_contract (skeleton)
     pyproject.toml
@@ -31,8 +33,11 @@ lib_bespok3d/
 
 The Electron app reaches this sibling repo by the `@bespok3d/contract` alias (mirroring `@adapters`
 / `@plugins`), wired in both tsconfigs (`tsconfig.node` + `tsconfig.web`) and both Vite configs
-(`electron.vite.config.ts` main + renderer, plus `vitest.config.ts`). Every export is a pure type, so
-consumers `import type` and the import is erased from every bundle (no runtime boundary is crossed).
+(`electron.vite.config.ts` main + renderer, plus `vitest.config.ts`). The wire and boundary exports are
+pure types, so consumers `import type` and those imports are erased from every bundle. `contract/version.ts`
+is the one exception and the only runtime code in the package: the single version comparator the app's
+main process, its renderer and the plugin install path all read, because a version string that means one
+thing on one path and something else on the next is how a compatibility floor stops holding.
 
 The app's own `tsc -b` typechecks these files (they are in both composite projects' `include`), and the
 app's `daemon-client/contract.test.ts` exercises the wire types against the daemon golden fixture, so

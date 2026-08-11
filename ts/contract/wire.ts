@@ -62,6 +62,10 @@ export interface CapabilitiesResult {
   kernel: KernelInfo
   klipper_version: string
   jinni_version: string
+  // The oldest jinni this daemon will drive: the daemon's half of the two compatibility floors, and
+  // the only one the app cannot read from a manifest. Optional because a daemon older than 0.12.24-dev
+  // declares no floor at all, which is silence and not a demand for version zero.
+  min_jinni_version?: string
   capability_flags: string[]
   interface_extras: string[]
   preferred_registries: string[]

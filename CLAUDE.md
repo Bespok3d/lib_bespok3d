@@ -13,10 +13,13 @@ If you are a non-Claude tool, `AGENTS.md` points you here.
 
 Read `README.md` for the full layout. In short:
 
-- `ts/`: the `@bespok3d/contract` package. Pure TypeScript types with no runtime: the app-to-daemon HTTP
-  wire shapes (`contract/wire.ts`) and the GPG key types shared across the app's main-to-renderer boundary
-  (`contract/keys.ts`). Every export is a type, so consumers `import type` and the import is erased from
-  every bundle.
+- `ts/`: the `@bespok3d/contract` package. Mostly TypeScript types: the app-to-daemon HTTP wire shapes
+  (`contract/wire.ts`) and the GPG key types shared across the app's main-to-renderer boundary
+  (`contract/keys.ts`). Those exports are types, so consumers `import type` and the import is erased from
+  every bundle. `contract/version.ts` is the one exception and the only runtime code here: the single
+  version comparator the app's main process, its renderer and the plugin install path all read. A second
+  comparator is forbidden, because a version string cannot be allowed to mean one thing on one path and
+  something else on the next.
 - `python/`: `bespok3d_contract`, the Python side of the contract. It is a skeleton today; later, one
   shared source is meant to generate it.
 - `tooling/`: the shared gate detectors and helpers every repo's `check.sh` sources: the em-dash guard
