@@ -72,6 +72,12 @@ release_trigger_check() {
     run_check "release trigger" node "$B3D_TOOLING_DIR/release-trigger-detector.mjs" "$@"
 }
 
+# The source and homepage the app shows a user are this repo's own address, read from its git origin.
+# A repo with no manifest.json, and a manifest declaring neither field, both pass.
+manifest_origin_check() {
+    run_check "manifest source and homepage" node "$B3D_TOOLING_DIR/manifest-origin-detector.mjs" "$@"
+}
+
 # Every shell script the repo ships. shellcheck is not installable everywhere, so its absence is a
 # reported skip rather than a failure. Args: the dirs to search.
 #

@@ -32,6 +32,7 @@ changes.
 | `gate_summary` | prints the tally and every failure's output; returns non-zero if anything failed |
 | `em_dash_check <path>...` | RULE ZERO over the paths given (see below) |
 | `workflow_pinning_check <dir>...` | the signing-key closure over the repo's own `.github/workflows` |
+| `manifest_origin_check <dir>...` | every manifest's `source` and `homepage` is this repo's own address |
 | `b3d_python_tools` | builds the shared Python 3.11 tool venv if needed; call once before any Python check |
 | `ruff_in_dir <dir> <paths...>` | ruff with the shared config, run FROM `<dir>` |
 | `pytest_in_dir <dir> <paths...>` | pytest with the shared config, run FROM `<dir>` |
@@ -69,6 +70,19 @@ key: an unpinned org action or cross-repo checkout, a secret in a `pr-build.yml`
 ```sh
 workflow_pinning_check "$REPO_ROOT"
 ```
+
+**`manifest-origin-detector.mjs`** fails when a `manifest.json` declares a `source` or `homepage` that
+is not the repo the manifest lives in. The app shows both to the user as the plugin's links, and 25
+manifests once shipped an invented `github.com/bespok3d-org/plugin-<name>` address that had never
+existed. The repo's own git origin is the truth, so the check is offline and exact:
+
+```sh
+manifest_origin_check "$REPO_ROOT"
+```
+
+Built copies under `dist/` and vendored ones under `node_modules/` are skipped, an ssh origin and an
+https manifest compare equal, and a checkout with no origin at all is reported and passed because
+there is nothing on disk to compare against.
 
 ## Running the tooling's own tests
 
