@@ -66,6 +66,12 @@ workflow_pinning_check() {
     run_check "workflow pinning" node "$B3D_TOOLING_DIR/workflow-pinning-detector.mjs" "$@"
 }
 
+# A release is published by a version tag and by nothing else, and a manual Run workflow click
+# reaches the version guard instead of skipping the job. A repo with no release.yml passes.
+release_trigger_check() {
+    run_check "release trigger" node "$B3D_TOOLING_DIR/release-trigger-detector.mjs" "$@"
+}
+
 # Every shell script the repo ships. shellcheck is not installable everywhere, so its absence is a
 # reported skip rather than a failure. Args: the dirs to search.
 #
