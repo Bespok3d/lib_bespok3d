@@ -100,6 +100,9 @@ export interface PluginRecoveryResult {
   log: InstallLogPhase[]
   autoDeactivated?: string
   fixDetail?: string
+  // The plugin's own files that no longer hold the bytes it shipped, because another installed
+  // plugin edits them on the printer. Recovery reports them and leaves the plugin running.
+  changedFiles?: string[]
 }
 
 export interface RecoverResult {
