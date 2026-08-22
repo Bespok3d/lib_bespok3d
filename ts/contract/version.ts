@@ -22,15 +22,15 @@ function parsePrerelease(prerelease: string | undefined): { prereleaseLabel: str
   if (!prerelease) return { prereleaseLabel: null, prereleaseNumber: 0 }
   const [label, ordinal] = prerelease.split('.')
 
-  return { prereleaseLabel: label, prereleaseNumber: Number(ordinal) || 0 }
+  return { prereleaseLabel: label ?? null, prereleaseNumber: Number(ordinal) || 0 }
 }
 
 export function parseSemanticVersion(version: string): ParsedVersion {
-  const withoutBuildTag = version.trim().replace(/^v/, '').split('+')[0]
+  const withoutBuildTag = version.trim().replace(/^v/, '').split('+')[0] ?? ''
   const [releaseTriple, prerelease] = withoutBuildTag.split('-')
 
   return {
-    release: releaseTriple.split('.').map((slot) => parseInt(slot, 10) || 0),
+    release: (releaseTriple ?? '').split('.').map((slot) => parseInt(slot, 10) || 0),
     ...parsePrerelease(prerelease),
   }
 }

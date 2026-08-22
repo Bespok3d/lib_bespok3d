@@ -132,3 +132,31 @@ describe('sameVersion', () => {
     expect(sameVersion('0.1.6', '0.1.7')).toBe(false)
   })
 })
+
+// A consumer compiling with noUncheckedIndexedAccess sees every index result as possibly undefined,
+// so `split('+')[0]` and the destructured prerelease parts are `string | undefined` there while the
+// declared shapes say `string` and `string | null`. The app compiles loosely and never saw it; the
+// mobile client compiles strictly and did. These pin the parser's answer for the shapes that reach
+// those index reads, so the stricter typing can never be "fixed" by widening the declared types.
+describe('degenerate version strings', () => {
+  it('an empty string parses to a zero release with no prerelease', () => {
+    const parsed = parseSemanticVersion('')
+
+    expect(parsed.release).toEqual([0])
+    expect(parsed.prereleaseLabel).toBeNull()
+    expect(parsed.prereleaseNumber).toBe(0)
+  })
+
+  it('a trailing hyphen leaves no prerelease label rather than an empty one', () => {
+    expect(parseSemanticVersion('1.2.3-').prereleaseLabel).toBeNull()
+  })
+
+  it('a build tag alone is stripped and the release still reads', () => {
+    expect(parseSemanticVersion('0.1.6+dev.3a7f1c2').release).toEqual([0, 1, 6])
+  })
+
+  it('a bare build tag parses without throwing', () => {
+    expect(parseSemanticVersion('+dev').release).toEqual([0])
+  })
+})
+
