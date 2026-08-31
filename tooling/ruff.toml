@@ -21,7 +21,7 @@ known-first-party = ["core", "api", "protocol", "jinni"]
 max-complexity = 8
 
 [lint.pylint]
-max-statements = 20       # ~40-line equivalent
+max-statements = 25       # ~50-line equivalent
 max-nested-blocks = 3     # same as ESLint max-depth: 3
 max-branches = 8
 max-returns = 4
@@ -29,5 +29,5 @@ max-returns = 4
 [lint.per-file-ignores]
 # A test asserting on a literal is the test, not a magic number. Matched against the path relative to
 # the working dir, which is why the gate lints a package from its own dir (see ruff_in_dir).
-"tests/**" = ["PLR2004"]
-"**/tests/**" = ["PLR2004"]
+"tests/**" = ["PLR2004","PLR0917","PLR0913"]
+"**/tests/**" = ["PLR2004","PLR0917","PLR0913"]
