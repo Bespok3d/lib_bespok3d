@@ -27,7 +27,8 @@ function parsePrerelease(prerelease: string | undefined): { prereleaseLabel: str
 
 export function parseSemanticVersion(version: string): ParsedVersion {
   const withoutBuildTag = version.trim().replace(/^v/, '').split('+')[0] ?? ''
-  const [releaseTriple, prerelease] = withoutBuildTag.split('-')
+  const [releaseTriple, ...prereleaseParts] = withoutBuildTag.split('-')
+  const prerelease = prereleaseParts.join('-')
 
   return {
     release: (releaseTriple ?? '').split('.').map((slot) => parseInt(slot, 10) || 0),

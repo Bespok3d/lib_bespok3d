@@ -35,6 +35,12 @@ describe('parseSemanticVersion', () => {
       prereleaseNumber: 0,
     })
   })
+
+  it('preserves a compound prerelease label such as beta-staging', () => {
+    expect(parseSemanticVersion('v0.7.8-beta-staging')).toEqual({
+      release: [0, 7, 8], prereleaseLabel: 'beta-staging', prereleaseNumber: 0,
+    })
+  })
 })
 
 describe('compareSemanticVersions', () => {
