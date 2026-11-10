@@ -62,7 +62,7 @@ describe('@bespok3d/contract shapes are constructible', () => {
   })
 
   it('builds a FileHashesResult and a RestoreFilesResult', () => {
-    const hashes = { files: { 'files/spoolman.cfg': 'ab'.repeat(32) } } satisfies FileHashesResult
+    const hashes = { files: { 'files/spoolman.cfg': 'ab'.repeat(32), 'files/gone.cfg': null } } satisfies FileHashesResult
     const restored = { restored: ['files/spoolman.cfg'] } satisfies RestoreFilesResult
     expect(hashes.files['files/spoolman.cfg']).toHaveLength(64)
     expect(restored.restored).toEqual(['files/spoolman.cfg'])

@@ -36,14 +36,17 @@ export interface PluginConfigResult {
 }
 
 // GET /plugins/{id}/file-hashes (daemon >= 0.15.0): the sha256 (hex) of each file the installed
-// manifest lists, by its path inside the plugin dir. A listed file that is missing or is not the
-// plugin's own regular file is absent. The route 404s on a plugin that is not installed.
+// manifest lists as kept on disk exactly as packed, by its path inside the plugin dir. A doc/ entry
+// and a file a template renders over are never listed. A kept file that is missing, unreadable, or
+// not the plugin's own regular file is null. The error answers are in the daemon's OpenAPI
+// description of the route.
 export interface FileHashesResult {
-  files: Record<string, string>
+  files: Record<string, string | null>
 }
 
-// POST /plugins/{id}/restore-files (daemon >= 0.15.0): the paths written back from the uploaded zip,
-// sorted. A zip that does not match the installed manifest is refused before anything is written.
+// POST /plugins/{id}/restore-files (daemon >= 0.15.0): the paths written back from the zip sent as
+// the multipart field `file`, sorted. The error answers are in the daemon's OpenAPI description of
+// the route.
 export interface RestoreFilesResult {
   restored: string[]
 }
