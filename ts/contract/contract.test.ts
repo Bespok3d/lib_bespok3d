@@ -4,10 +4,12 @@ import { describe, it, expect } from 'vitest'
 import type {
   CapabilitiesResult,
   DaemonStatusResult,
+  FileHashesResult,
   InstallLog,
   KeyRecord,
   PluginConfigResult,
   RecoverResult,
+  RestoreFilesResult,
 } from './index'
 
 // @bespok3d/contract is a pure-type package: there is no runtime surface to unit-test. These cases
@@ -57,6 +59,13 @@ describe('@bespok3d/contract shapes are constructible', () => {
     expect(bareStatus.printer_uuid).toBeUndefined()
     expect(identifiedStatus.printer_uuid).toContain('-')
     expect(config.vars.SPOOLMAN_SERVER).toBe('192.0.2.10:8000')
+  })
+
+  it('builds a FileHashesResult and a RestoreFilesResult', () => {
+    const hashes = { files: { 'files/spoolman.cfg': 'ab'.repeat(32) } } satisfies FileHashesResult
+    const restored = { restored: ['files/spoolman.cfg'] } satisfies RestoreFilesResult
+    expect(hashes.files['files/spoolman.cfg']).toHaveLength(64)
+    expect(restored.restored).toEqual(['files/spoolman.cfg'])
   })
 
   it('builds a KeyRecord', () => {

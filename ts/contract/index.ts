@@ -12,6 +12,8 @@ export type {
   KernelInfo,
   DaemonStatusResult,
   PluginConfigResult,
+  FileHashesResult,
+  RestoreFilesResult,
   CapabilitiesResult,
   InstallLogItem,
   InstallLogPhase,
