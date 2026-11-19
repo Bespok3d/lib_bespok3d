@@ -45,6 +45,8 @@ export interface DaemonMetadata {
   daemonUpdateAvailable?: boolean
   installedIds?: string[]
   installedVersions?: Record<string, string>
+  installedFingerprints?: Record<string, string>
+  machineryFingerprints?: Record<string, string>
   daemonDrift?: DriftReport[]
   printerProblems?: PrinterProblem[]
   // Whether the printer itself says bespok3d is switched off on it: wiring gone and plugins unlinked

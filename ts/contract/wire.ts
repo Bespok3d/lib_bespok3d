@@ -68,6 +68,11 @@ export interface CapabilitiesResult {
   // evidence for a later verification survived the install. Optional: a daemon older than 0.12.19-dev
   // omits it entirely, which is not the same claim as an empty list.
   stored_signatures?: string[]
+  // The fingerprint (sha256 hex) each installed plugin's package carried, by plugin id, and the same
+  // for the daemon and jinni by package name. A same-version rebuild differs only here. Optional: an
+  // older daemon omits both maps, and a package packed before fingerprints existed is left out.
+  installed_fingerprints?: Record<string, string>
+  machinery_fingerprints?: Record<string, string>
   firmware_version: string
   // arch (aarch64, ...) and board_class (standard | constrained | unknown) are the device facts the
   // variant engine selects native artifacts on; the daemon always emits them (defaulting to unknown).

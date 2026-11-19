@@ -36,6 +36,28 @@ describe('@bespok3d/contract shapes are constructible', () => {
     expect(caps.endpoints[0].label).toBe('Spoolman')
   })
 
+  it('builds a CapabilitiesResult carrying the fingerprint maps', () => {
+    const caps = {
+      adapter: 'snapmaker-u1',
+      hardware: [],
+      installed: { spoolman: '1.0.0' },
+      installed_fingerprints: { spoolman: 'ab'.repeat(32) },
+      machinery_fingerprints: { 'bespok3d-daemon': 'cd'.repeat(32) },
+      firmware_version: 'unknown',
+      arch: 'aarch64',
+      board_class: 'standard',
+      kernel: { release: '0.0.0-test', vermagic: '0.0.0-test SMP preempt mod_unload aarch64' },
+      klipper_version: 'unknown',
+      jinni_version: 'unknown',
+      capability_flags: [],
+      interface_extras: [],
+      preferred_registries: [],
+      endpoints: [],
+    } satisfies CapabilitiesResult
+    expect(caps.installed_fingerprints.spoolman).toHaveLength(64)
+    expect(caps.machinery_fingerprints['bespok3d-daemon']).toHaveLength(64)
+  })
+
   it('builds an InstallLog and a RecoverResult', () => {
     const log = {
       pluginId: 'spoolman',

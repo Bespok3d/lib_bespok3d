@@ -3,9 +3,10 @@
 // @bespok3d/contract - the shared wire + boundary types of the Bespok3d SDK (ADR-0038). Collected from
 // the app where they were hand-mirrored across the main<->renderer boundary and the app<->daemon wire.
 // The wire and boundary shapes are pure types, erased at build time, so consumers import them with
-// `import type`. `./version` is the one exception and the only runtime code here: the single version
-// comparator both halves of the app and the store install path read, which has to be one
-// implementation or the same string means different things on different paths.
+// `import type`. `./version` and `./offer` are the exception and the only runtime code here: the single
+// version comparator and the single update-offer rule both halves of the app and the store install
+// path read, which have to be one implementation or the same string means different things on
+// different paths.
 
 export type {
   Endpoint,
@@ -37,6 +38,10 @@ export {
   isNewerVersion,
   sameVersion,
 } from './version'
+
+export type { PackageBuild, VersionOrdering } from './offer'
+
+export { isUpdateOffered, isUpgradeOffered } from './offer'
 
 export {
   reportedVersionOrNull,
