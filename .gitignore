@@ -1,5 +1,5 @@
 # TypeScript package
-ts/node_modules/
+node_modules/
 ts/*.tsbuildinfo
 ts/.cache/
 
